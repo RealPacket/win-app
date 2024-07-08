@@ -680,7 +680,7 @@ namespace ProtonVPN.Core
 
         public bool IsNetShieldEnabled()
         {
-            return FeatureNetShieldEnabled && NetShieldEnabled;
+            return NetShieldEnabled;
         }
 
         public bool IsPortForwardingEnabled()
@@ -690,7 +690,7 @@ namespace ProtonVPN.Core
 
         public bool IsVpnAcceleratorEnabled()
         {
-            return FeatureVpnAcceleratorEnabled && VpnAcceleratorEnabled;
+            return VpnAcceleratorEnabled;
         }
 
         public bool IsSmartReconnectEnabled()

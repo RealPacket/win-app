@@ -251,7 +251,6 @@ namespace ProtonVPN.Sidebar.QuickSettings
             PortForwardingOnCommand = new RelayCommand(TurnOnPortForwardingActionAsync);
 
             ShowSecureCoreUpsellModalCommand = new RelayCommand(ShowSecureCoreUpsellModalAction);
-            ShowNetshieldUpsellModalCommand = new RelayCommand(ShowNetshieldUpsellModalAction);
             ShowPortForwardingUpsellModalCommand = new RelayCommand(ShowPortForwardingUpsellModalAction);
         }
 
@@ -528,19 +527,12 @@ namespace ProtonVPN.Sidebar.QuickSettings
 
         private async Task EnableNetShieldMode(int mode)
         {
-            if (IsNetShieldDisabled)
+            bool isCustomDnsOn = _appSettings.CustomDnsEnabled;
+            _appSettings.NetShieldEnabled = true;
+            _appSettings.NetShieldMode = mode;
+            if (isCustomDnsOn)
             {
-                ShowNetshieldUpsellModalAction();
-            }
-            else
-            {
-                bool isCustomDnsOn = _appSettings.CustomDnsEnabled;
-                _appSettings.NetShieldEnabled = true;
-                _appSettings.NetShieldMode = mode;
-                if (isCustomDnsOn)
-                {
-                    await ReconnectAsync();
-                }
+                await ReconnectAsync();
             }
         }
 
@@ -567,14 +559,6 @@ namespace ProtonVPN.Sidebar.QuickSettings
         private async void ShowSecureCoreUpsellModalAction()
         {
             await _modals.ShowAsync<SecureCoreUpsellModalViewModel>();
-        }
-
-        private async void ShowNetshieldUpsellModalAction()
-        {
-            if (IsFreeUser)
-            {
-                await _modals.ShowAsync<NetshieldUpsellModalViewModel>();
-            }
         }
 
         private async void ShowPortForwardingUpsellModalAction()
