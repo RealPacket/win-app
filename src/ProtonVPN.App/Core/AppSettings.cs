@@ -685,7 +685,7 @@ namespace ProtonVPN.Core
 
         public bool IsPortForwardingEnabled()
         {
-            return FeaturePortForwardingEnabled && PortForwardingEnabled;
+            return PortForwardingEnabled;
         }
 
         public bool IsVpnAcceleratorEnabled()
