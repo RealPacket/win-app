@@ -72,3 +72,41 @@
 #       with:
 #         name: MSIX Package
 #         path: ${{ env.Wap_Project_Directory }}\AppPackages
+# from MeowWatch:
+# name: release
+
+# on:
+#     - push
+#     - workflow_dispatch
+
+# jobs:
+#     build:
+#         name: Release
+#         permissions:
+#             contents: write
+
+#         runs-on: windows-latest
+
+#         steps:
+#             - uses: actions/checkout@v4
+#             - name: Setup .NET
+#               uses: actions/setup-dotnet@v4
+#               with:
+#                   dotnet-version: 8.0.x
+#             - name: Restore dependencies
+#               run: dotnet restore
+#             - name: Build
+#               run: dotnet build --no-restore
+
+#             - name: zip/compress the build folder
+#               shell: pwsh
+#               run: ./zip-build.ps1 -ZipFileName build.zip
+
+#             - name: Release
+#               uses: softprops/action-gh-release@v2
+#               with:
+#                   make_latest: true
+#                   name: "Build: ${{ github.sha }}"
+#                   tag_name: sha-${{github.sha}}
+#                   files: |
+#                       build.zip
